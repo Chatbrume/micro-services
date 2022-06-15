@@ -9,37 +9,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Artist {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Artist extends GenericEntity {
     private String nickName;
     private String firstName;
     private String lastName;
     @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date birthDate;
-    @DateTimeFormat(pattern="dd/MM/yyyy")
-    private Date createdAt;
-    @DateTimeFormat(pattern="dd/MM/yyyy")
-    private Date modifiedAt;
+    private String nationality;
+    @Enumerated(EnumType.STRING)
     private ArtistStyle artistStyle;
-
-    @PrePersist
-    public void prePersist(){
-        Date d = new Date();
-        this.createdAt = d;
-        this.modifiedAt = d;
-    }
-
-    @PreUpdate
-    public void preUpdate(){
-        this.modifiedAt = new Date();
-    }
-
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private Set<Album> album;
 }
