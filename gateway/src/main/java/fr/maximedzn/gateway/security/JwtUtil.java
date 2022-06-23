@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 
@@ -17,7 +18,8 @@ import java.util.Map;
 public class JwtUtil {
     Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    private static final String SECRET = "mySecret";
+    @Value("${secret.token}")
+    private static String SECRET = "";
     private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET);
 
 

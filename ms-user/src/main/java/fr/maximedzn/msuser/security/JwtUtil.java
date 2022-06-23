@@ -7,6 +7,7 @@ import fr.maximedzn.msuser.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 
@@ -19,7 +20,8 @@ public class JwtUtil {
 
     //minutes to milliseconds
     private static final int EXPIRATION_TIME = 60 * 60 * 1000;
-    private static final String SECRET = "mySecret";
+    @Value("${secret.token}")
+    private static String SECRET = "";
     private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET);
 
     public Boolean validateToken(String token){
